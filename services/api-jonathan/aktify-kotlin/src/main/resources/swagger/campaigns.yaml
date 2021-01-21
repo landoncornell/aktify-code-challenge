@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  description: CampaignsApi
+  version: "1.0.0"
+  title: Campaigns Api
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  /campaigns/{id}:
+    get:
+      summary: get a specific campaign
+      operationId: CampaignsController.show
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id of the campaign to retrieve
+
+      responses:
+        200:
+          description: returned the specified campaign
+        404:
+          description: the requested campaign doesn't exist
+  /campaigns:
+    get:
+      summary: get campaigns
+      operationId: CampaignsController.index
+      responses:
+        200:
+          description: returned the list of campaigns
+    post:
+      summary: adding a campaign
+      operationId: CampaignsController.post
+      description: Post Campaign
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - description
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  required: true
+                description:
+                  type: string
+                  minLength: 1
+                  required: true
+                active:
+                  type: boolean
+                  default: false
+                  required: false
+      responses:
+        '200':
+          description: success
+        '400':
+          description: bad input parameter
+
